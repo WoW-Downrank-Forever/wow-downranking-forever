@@ -149,6 +149,11 @@ body {
 	text-align: center;
 }
 
+body.forever {
+	background: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url('../images/forever.png') no-repeat 0 0;
+	background-size: cover;
+}
+
 body.tbc {
 	background: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url('../images/Outland.jpg') no-repeat 0 0;
 	background-size: cover;

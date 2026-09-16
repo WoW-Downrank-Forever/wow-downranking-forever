@@ -70,6 +70,6 @@ If you intend to make larger changes, I would suggest forking the repository and
 
 1. Create a fork of the repository
 2. Setup a GitHub pages site for your new repo https://docs.github.com/en/pages/quickstart using the branch you develop on as source branch. Make sure to select `root` as folder to ensure access to assets.
-3. Unless you have a custom domain to use, you will also have to run a search and replace on `assets/` and replace with `your-repo-name/assets/`. This is due to the way GitHub serves files related to a repository.
+3. Unless you have a custom domain to use, you will also have to run a search and replace on `assets/` and replace with `your-repo-nameassets/`. This is due to the way GitHub serves files related to a repository.
 5. Good luck!
 

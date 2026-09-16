@@ -85,7 +85,7 @@ function buildSpellTable(spellData, healingPower) {
 							<th data-sort-mode="no">Rank</th>
 							<th>Healing</th>
 							<th data-sort-mode="asc">Mana cost</th>
-							<th data-sort-mode="no">Cast time</th>
+							<th data-sort-mode="no">${getSpellType(spellData.ranks[0]) === 'overTime' ? 'Duration' : 'Cast time'}</th>
 							<th>HpME</th>
 							<th>HpS</th>
 							<th>HES</th>`;
@@ -326,7 +326,7 @@ function buildBuffHtmlForClass(buffData){
 }
 
 function buildBuffIcon(className, buff){
-	return `<div id="buff-${buff.key}" class="icon-medium buff-icon" data-buff='${JSON.stringify(buff)}' data-class-name="${className}" data-spell-name="${buff.key}" title="${buff.name}" alt="${buff.name}" style="background-image: url(/assets/images/${buff.image})" onClick="toggleBuff(this)">
+	return `<div id="buff-${buff.key}" class="icon-medium buff-icon" data-buff='${JSON.stringify(buff)}' data-class-name="${className}" data-spell-name="${buff.key}" title="${buff.name}" alt="${buff.name}" style="background-image: url(assets/images/${buff.image})" onClick="toggleBuff(this)">
 				${buildBuffTooltip(buff)}
 			</div>`
 }

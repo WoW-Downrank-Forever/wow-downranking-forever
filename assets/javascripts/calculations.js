@@ -29,7 +29,20 @@ function calculateHES(PpM, PpS){
 }
 
 function calculatePower(healingPower, spellData, rank){
-	return expansion === 'tbc' ? calculatePowerTbc(healingPower, spellData, rank) : calculatePowerClassic(healingPower, spellData, rank);
+	switch(expansion){
+		case 'classic':
+			return calculatePowerClassic(healingPower, spellData, rank);
+		case 'forever':
+			return calculatePowerForever(healingPower, spellData, rank);
+		case 'tbc':
+			return calculatePowerTbc(healingPower, spellData, rank);
+		default:
+			throw new Error("Unknown expansion: " + expansion);
+	}
+}
+
+function calculatePowerForever(healingPower, spellData, rank){
+	return calculatePowerClassic(healingPower, spellData, rank);
 }
 
 function calculatePowerClassic(healingPower, spellData, rank){
@@ -46,12 +59,12 @@ function calculatePowerClassic(healingPower, spellData, rank){
 			directExtraPower = healingPower * getDirectSpellCoeficient(spellData, rank);
 			break;
 	  	case "overTime":
-	  		overTimePower = rankData.tickPower;
-	  		overTimeExtraPower = healingPower * getOverTimeCoeficient(spellData, rank);
+	  		overTimePower = rankData.tickPower * (rankData.tickDuration + getTalentTickDurationIncrease(spellData.class, spellData.name, spellData.type)) / rankData.tickFrequency;
+			overTimeExtraPower = healingPower * getOverTimeCoeficient(spellData, rank);
 	    	break;
 	  	case "hybrid":
 	  		directPower = (rankData.powerMax + rankData.powerMin) / 2;
-  			overTimePower = rankData.tickPower;
+  			overTimePower = rankData.tickPower * (rankData.tickDuration + getTalentTickDurationIncrease(spellData.class, spellData.name, spellData.type)) / rankData.tickFrequency;
 			let coefficient = getHybridCoeficients(spellData, rank);
 	  		directExtraPower = healingPower * coefficient["direct"];
 	  		overTimeExtraPower = healingPower * coefficient["overTime"];
@@ -130,11 +143,11 @@ function calculateCastTime(spellData, rank){
 		case "hybrid":
 			divider = Math.max(1.5, rankData.baseCastTime);
 			divider -= getTalentCastTimeReduction(spellData.class, spellData.name, spellData.type);
-			divider -= getBuffCastTimeReduction(spellData.class, spellData.name, spellData.type);
+			divider -= getBuffCastTimeReduction(spellData, rank);
 			divider *= getHasteCoefficient();
 			break;
 	  	case "overTime":
-	  		divider = rankData.tickDuration;
+	  		divider = rankData.tickDuration + getTalentTickDurationIncrease(spellData.class, spellData.name, spellData.type);
 	    	break;
 	}
 	return Math.max(expansion === 'tbc' ? 1 : 1.5, divider); // Assuming a minimum of 1 global cooldown for TBC and 1.5 sec for Classic.
@@ -170,6 +183,14 @@ function getTalentPowerCoefficient(className, spellName, spellType){
 				}
 			}
 			talent = getTalentByName('improved_rejuvenation');
+			if(talent.length > 0) {
+				data = talent.data("talent");
+				if(isAffected(spellName, spellType, data)){
+					rank = talent.data("current-rank");
+					powerCoef *=  (1 + ((data.rankIncrement * rank) / 100));
+				}
+			}
+			talent = getTalentByName('genesis');
 			if(talent.length > 0) {
 				data = talent.data("talent");
 				if(isAffected(spellName, spellType, data)){
@@ -404,6 +425,29 @@ function getTalentCastTimeReduction(className, spellName, spellType){
 	}
 }
 
+function getTalentTickDurationIncrease(className, spellName, spellType){
+	let talent;
+	let talentData;
+	let rank;
+	switch(className) {
+		case "druid":
+			talent = getTalentByName('nature-s_splendor');
+			if(talent.length > 0) {
+				talentData = talent.data("talent");
+				if(isAffected(spellName, spellType, talentData)){
+					rank = talent.data("current-rank");
+					if(spellName === 'Rejuvenation'){
+						return talentData.rankIncrement * rank;
+					}
+					return talentData.rankIncrement * rank * 2; // Hard coded for Regrowth, since it is increased by 6 seconds
+				}
+			}
+			return 0;
+		default:
+			return 0;
+	}
+}
+
 function getBuffPowerCoefficient(className, spellName, spellType){
 	let buff;
 	switch(className) {
@@ -467,26 +511,33 @@ function getBuffCostCoefficient(className, spellName, spellType){
 
 }
 
-function getBuffCastTimeReduction(className, spellName, spellType) {
+function getBuffCastTimeReduction(spellData, spellRank) {
 	let buff;
-	let data;
-	switch(className) {
+	let buffData;
+	switch(spellData.class) {
 		case "paladin":
 			buff = getBuffByName('lights_grace');
 			if(buff.length > 0 && buff.hasClass('active')){
-				data = buff.data('buff');
-				if(spellName === 'Holy Light'){
-					return data.ranks[2].reduction;
+				buffData = buff.data('buff');
+				if(spellData.name === 'Holy Light'){
+					return buffData.ranks[2].reduction;
 				}
 			}
 			return 0;
 		case "shaman":
 			buff = getBuffByName('stormcaller_chain_heal_bonus');
 			if(buff.length > 0 && buff.hasClass('active')){
-				data = buff.data('buff');
-				if(spellName === 'Chain Heal'){
-					return data.ranks[0].effect;
+				buffData = buff.data('buff');
+				if(spellData.name === 'Chain Heal'){
+					return buffData.ranks[0].effect;
 				}
+			}
+			return 0;
+		case "druid":
+			buff = getBuffByName('nature-s_grace');
+			if(buff.length > 0 && buff.hasClass('active')){
+				buffData = buff.data('buff');
+				return spellData.ranks[spellRank-1].baseCastTime * (buffData.ranks[0].effect/100);
 			}
 			return 0;
 		default:
@@ -496,7 +547,7 @@ function getBuffCastTimeReduction(className, spellName, spellType) {
 
 function getEffectiveCritChance(className, spellName, spellType){
 	let critChance = getCritChance();
-	let talents = ['improved_regrowth', 'natural_perfection', 'holy_specialization', 'holy_power', 'sanctified_light', 'tidal_mastery']
+	let talents = ['nature-s_majesty', 'improved_regrowth', 'natural_perfection', 'holy_specialization', 'holy_power', 'sanctified_light', 'tidal_mastery']
 	let rank;
 	for(let i = 0; i < talents.length; i++){
 		talent = getTalentByName(talents[i]);

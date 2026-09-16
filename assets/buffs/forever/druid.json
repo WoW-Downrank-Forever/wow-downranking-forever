@@ -1,0 +1,20 @@
+{
+	"class":"druid",
+	"buffs": [
+		{ 	
+			"name":"Nature´s Grace",
+			"key":"nature-s_grace",
+			"type":"buff",
+			"image":"natures_grace.jpg",
+			"description":"All non-periodic spell criticals grace you with a blessing of nature, increasing your spellcasting speed and reducing your global cooldown by ${effect}% for 3 sec.",
+			"ranks":[
+				{	
+					"rank":1,
+					"level":60,
+					"baseCastTime":0,
+					"effect":10
+				}
+			]
+		}
+	]
+}

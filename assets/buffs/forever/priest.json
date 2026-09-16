@@ -1,5 +1,20 @@
 {
 	"class":"priest",
 	"buffs": [
+		{ 	
+			"name":"Weakened Soul",
+			"key":"weakened_soul",
+			"type":"buff",
+			"image":"weakened_soul.jpg",
+			"description":"Cannot be Power Word: Shielded. <br><br><i class=\"blue\">If active calculations will assumes that your target has the Weakened Soul debuff active</i>",
+			"ranks":[
+				{	"rank":-1,
+					"level":1,
+					"cost":-1,
+					"range":-1,
+					"baseCastTime":0
+				}
+			]
+		}
 	]
 }

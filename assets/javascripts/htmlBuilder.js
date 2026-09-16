@@ -1,5 +1,5 @@
 const classSpells = {
-	"druid": ["healing_touch", "regrowth", "rejuvenation"],
+	"druid": ["healing_touch", "regrowth", "rejuvenation", "wild_growth"],
 	"paladin": ["flash_of_light", "holy_light", "holy_shock"],
 	"priest": ["flash_heal", "greater_heal", "heal", "renew"],
 	"shaman": ["chain_heal", "healing_wave", "lesser_healing_wave"]
@@ -216,29 +216,42 @@ function buildSpellDescription(spell, rank) {
 }
 
 function buildTalentTooltip(talent, rank) {
-
 	var description = talent.description;
-	let regExp = /\${([^}]+)}/g;
-	let matches = description.match(regExp);
-	let state = "";
-	let footer = talent.description;
-	if(matches){
-		for(let i = 0; i < matches.length; i++){
-			let match = matches[i];
-			let attribute = match.substring(2, matches[i].length -1);
-			if(rank === 0){
-				description = description.replace(match, roundNumber(talent[attribute] * (rank + 1), 1));
-				footer = "Click to learn";
-				state = "first";
-			} else if (rank === talent.maxRank){
-				description = description.replace(match, roundNumber(talent[attribute] * rank, 1));
-				footer = "Click to unlearn"
-				state = "last";
-			} else {
-				description = description.replace(match, roundNumber(talent[attribute] * rank, 1));
-				footer = `</br>Next rank:</br><span class="next-rank">${footer.replace(match, roundNumber(talent[attribute] * (rank + 1), 1))}</span>`
-			}
-		}
+    let regExp = /\${([^}]+)}/g;
+    let matches = [];
+    let m;
+    while ((m = regExp.exec(talent.description)) !== null) {
+        matches.push(m[0]);
+    }
+    let state = "";
+    let footer = talent.description;
+	const decimalPlaces = talent.decimalPlaces !== undefined ? talent.decimalPlaces : 1;
+    if(matches && matches.length){
+        for(let i = 0; i < matches.length; i++){
+            let match = matches[i];
+            let attribute = match.substring(2, match.length -1);
+            if(rank === 0){
+                description = description.replace(new RegExp('\\$\\{' + attribute + '\\}', 'g'), roundNumber(talent[attribute] * (rank + 1), decimalPlaces));
+                footer = "Click to learn";
+                state = "first";
+            } else if (rank === talent.maxRank){
+                description = description.replace(new RegExp('\\$\\{' + attribute + '\\}', 'g'), roundNumber(talent[attribute] * rank, decimalPlaces));
+                footer = "Click to unlearn"
+                state = "last";
+            } else {
+                description = description.replace(new RegExp('\\$\\{' + attribute + '\\}', 'g'), roundNumber(talent[attribute] * rank, decimalPlaces));
+            }
+        }
+
+        if (rank > 0 && rank < talent.maxRank) {
+            let nextFooter = talent.description;
+            for(let i = 0; i < matches.length; i++){
+                let match = matches[i];
+                let attribute = match.substring(2, match.length -1);
+                nextFooter = nextFooter.replace(new RegExp('\\$\\{' + attribute + '\\}', 'g'), roundNumber(talent[attribute] * (rank + 1), decimalPlaces));
+            }
+            footer = `</br>Next rank:</br><span class="next-rank">${nextFooter}</span>`;
+        }
 	}
 	return `<div class="header">${toTitleCase(talent.name)}</div>
 			<div class="rank">Rank ${rank}/${talent.maxRank}</div>

@@ -96,11 +96,24 @@
 			"name":"nature-s_splendor",
 			"maxRank":1,
 			"rankIncrement":3,
-			"description":"Increases the duration of your Moonfire and Rejuvenation spells by ${rankIncrement} sec, your Regrowth spell by 6 sec, and your Insect Swarm spell by 2 sec.",
+			"rankIncrement2":6,
+			"rankIncrement3":2,
+			"description":"Increases the duration of your Moonfire and Rejuvenation spells by ${rankIncrement} sec, your Regrowth spell by ${rankIncrement2} sec, and your Insect Swarm spell by ${rankIncrement3} sec.",
 			"image":"natures_splendor.jpg",
 			"affectedSpells": [
 				"Regrowth",
 				"Rejuvenation"
+			]
+		},
+		{
+			"name":"gift_of_the_earthmother",
+			"maxRank":1,
+			"rankIncrement":0.5,
+			"description":"Reduces the global cooldown by ${rankIncrement} seconds on your Rejuvenation, Swiftmend, and Wild Growth spells.",
+			"image":"gift_of_the_earthmother.jpg",
+			"affectedSpells": [
+				"Rejuvenation",
+				"Wild Growth"
 			]
 		}
 	]

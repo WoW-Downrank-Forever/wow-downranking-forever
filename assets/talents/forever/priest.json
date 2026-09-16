@@ -3,9 +3,10 @@
 	"talents": [
 		{
 			"name":"mental_agility",
-			"maxRank":5,
-			"rankIncrement":2,
-			"description":"Reduces the mana cost of your instant cast spells by ${rankIncrement}%.",
+			"maxRank":3,
+			"rankIncrement":3.33,
+			"decimalPlaces":0,
+			"description":"Reduces the mana cost of your Smite, Holy Fire, and instant cast spells by ${rankIncrement}%.",
 			"image":"mental_agility.jpg",
 			"affectedSpells": [
 				"Renew"
@@ -58,12 +59,29 @@
 		},
 		{
 			"name":"spiritual_healing",
-			"maxRank":5,
-			"rankIncrement":2,
+			"maxRank":3,
+			"decimalPlaces":0,
+			"rankIncrement":3.33,
 			"description":"Increases the amount healed by your healing spells by ${rankIncrement}%.",
 			"image":"spiritual_healing.jpg",
 			"affectedSpells": [
 				"heal"
+			]
+		},
+		{
+			"name":"renewed_hope",
+			"maxRank":5,
+			"rankIncrement":2,
+			"rankIncrement2":1,
+			"description":"Your heals from Flash Heal, Binding Heal, Lesser Heal, Heal, Greater Heal, and Penance gain ${rankIncrement}% increased critical strike chance when cast on targets with Weakened Soul, and reduce the remaining duration of Weakened Soul on their target by ${rankIncrement2} sec.",
+			"image":"renewed_hope.jpg",
+			"affectedSpells": [
+				"Flash Heal",
+				"Binding Heal",
+				"Lesser Heal",
+				"Heal",
+				"Greater Heal",
+				"Penance"
 			]
 		}
 	]

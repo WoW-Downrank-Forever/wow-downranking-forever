@@ -57,6 +57,7 @@
 			"ranks":[
 				{	"rank":1,
 					"level":60,
+					"baseCastTime":0,
 					"effect":0.4
 				}
 			]

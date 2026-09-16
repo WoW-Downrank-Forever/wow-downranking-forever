@@ -1,0 +1,30 @@
+{
+	"class":"druid",
+	"name":"Wild Growth",
+	"type":"heal",
+	"description":"Heals the target and their party for ${tickTotal} over 7 sec. Party members must be within 43 yards of target. The amount healed is applied quickly at first, and slows down as Wild Growth reaches its full duration.",
+	"notes": [
+		{
+			"author": {
+				"name": "",
+				"description": ""
+			},
+			"note": ""
+		}
+	],
+	"critable":false,
+	"ranks":[
+		{	"rank":1,
+			"level":40,
+			"cost":550,
+			"range":40,
+			"baseCastTime":0,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":1,
+			"tickDuration":7,
+			"tickPower":40.714,
+			"tickTotal":285
+		}
+	]
+}

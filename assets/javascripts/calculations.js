@@ -438,8 +438,9 @@ function getTalentTickDurationIncrease(className, spellName, spellType){
 					rank = talent.data("current-rank");
 					if(spellName === 'Rejuvenation'){
 						return talentData.rankIncrement * rank;
-					}
-					return talentData.rankIncrement * rank * 2; // Hard coded for Regrowth, since it is increased by 6 seconds
+					} else if(spellName === 'Regrowth'){
+						return talentData.rankIncrement2 * rank;
+					} return 0;
 				}
 			}
 			return 0;
@@ -547,15 +548,27 @@ function getBuffCastTimeReduction(spellData, spellRank) {
 
 function getEffectiveCritChance(className, spellName, spellType){
 	let critChance = getCritChance();
-	let talents = ['nature-s_majesty', 'improved_regrowth', 'natural_perfection', 'holy_specialization', 'holy_power', 'sanctified_light', 'tidal_mastery']
+	let talents = ['nature-s_majesty', 'improved_regrowth', 'natural_perfection', 'holy_specialization', 'holy_power', 'sanctified_light', 'tidal_mastery', 'renewed_hope']
 	let rank;
 	for(let i = 0; i < talents.length; i++){
-		talent = getTalentByName(talents[i]);
+		currentTalentName = talents[i];
+		talent = getTalentByName(currentTalentName);
 		if(talent.length > 0) {
 			data = talent.data("talent");
 			if(className === talent.data("class-name") && isAffected(spellName, spellType, data)){
 				rank = talent.data("current-rank");
-				critChance += data.rankIncrement * rank;
+				if(currentTalentName === 'holy_power' && spellName === 'Holy Shock'){
+					critChance += data.rankIncrement2 * rank;
+					continue;
+				} else if(currentTalentName === 'renewed_hope'){
+					buff = getBuffByName('weakened_soul');
+					if(buff.length > 0 && buff.hasClass('active')){
+						critChance += data.rankIncrement * rank;
+					}
+					continue;
+				} else {
+					critChance += data.rankIncrement * rank;
+				}
 			}
 		}
 	}

@@ -2,7 +2,7 @@ const classSpells = {
 	"druid": ["healing_touch", "regrowth", "rejuvenation", "wild_growth"],
 	"paladin": ["flash_of_light", "holy_light", "holy_shock"],
 	"priest": ["flash_heal", "greater_heal", "heal", "renew", "penance", "binding_heal", "prayer_of_mending"],
-	"shaman": ["chain_heal", "healing_wave", "lesser_healing_wave"]
+	"shaman": ["chain_heal", "healing_wave", "lesser_healing_wave", "riptide"],
 }
 
 function buildBreakpointsTable(spellData){

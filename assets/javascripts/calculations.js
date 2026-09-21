@@ -243,12 +243,13 @@ function getTalentPowerCoefficient(className, spellName, spellType){
 					powerCoef *= (1 + ((data.rankIncrement * rank) / 100));
 				}
 			}
-			talent = getTalentByName('improved_chain_heal');
+			talent = getTalentByName('healing_way');
 			if(talent.length > 0) {
 				data = talent.data("talent");
-				if(isAffected(spellName, spellType, data)){
+				rank = talent.data("current-rank");
+				if(isAffected(spellName, spellType, data)) {
 					rank = talent.data("current-rank");
-					powerCoef *= (1 + ((data.rankIncrement * rank) / 100));
+					powerCoef *=  (1 + ((data.rankIncrement * rank) / 100));
 				}
 			}
 			return powerCoef;
@@ -460,11 +461,11 @@ function getBuffPowerCoefficient(className, spellName, spellType){
 	let buff;
 	switch(className) {
 		case "shaman":
-			buff = getBuffByName('healing_way');
+			buff = getBuffByName('riptide_buff');
 			if(buff.length > 0 && buff.hasClass('active')){
 				let data = buff.data('buff');
-				if(spellName === 'Healing Wave'){
-					return 1 + data.ranks[2].effect * 3/100;
+				if(spellName === 'Chain Heal'){
+					return 1 + (data.ranks[0].effect / 100);
 				}
 			}
 			return 1;

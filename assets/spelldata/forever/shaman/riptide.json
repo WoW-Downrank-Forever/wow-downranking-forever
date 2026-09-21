@@ -1,0 +1,29 @@
+{
+	"class":"shaman",
+	"name":"Riptide",
+	"type":"heal",
+	"description":"Heals a friendly target for ${powerMax}, an additional ${tickPower} over 15 sec, and increases the effectiveness of your Chain Heal casts directly on that target by 25%.",
+	"notes": [
+		{
+			"author": {
+				"name": "Egregious",
+				"description": "Experienced Resto Shaman and author of <a href='https://classicwow.live/guides/18/the-egregious-guide-to-resto-shaman' title='Click to visit Egregious Guide to Classic Resto Shaman' target='_blank'>The Egregious Guide to Classic Resto Shaman</a>"
+			},
+			"note": ""
+		}
+	],
+	"critable":true,
+	"ranks":[
+		{	"rank":1,
+			"level":40,
+			"cost":245,
+			"range":40,
+			"baseCastTime":0,
+			"powerMin":333,
+			"powerMax":333,
+			"tickInterval":3,
+			"tickDuration":15,
+			"tickPower":666
+		}
+	]
+}

@@ -2,39 +2,6 @@
 	"class":"shaman",
 	"buffs": [
 		{ 	
-			"name":"Healing Way",
-			"key":"healing_way",
-			"type":"buff",
-			"image":"healing_way.jpg",
-			"description":"Your Healing Wave spells have a ${chance}% chance to increase the effect of subsequent Healing Wave spells on that target by ${effect}% for 15 sec. This effect will stack up to 3 times.<br><br><i class=\"blue\">Adding this will add 3 stacks.</i>",
-			"ranks":[
-				{	"rank":1,
-					"level":30,
-					"cost":-1,
-					"range":-1,
-					"baseCastTime":0,
-					"chance":33,
-					"effect":6
-				},
-				{	"rank":2,
-					"level":31,
-					"cost":-1,
-					"range":-1,
-					"baseCastTime":0,
-					"chance":66,
-					"effect":6
-				},
-				{	"rank":3,
-					"level":32,
-					"cost":-1,
-					"range":-1,
-					"baseCastTime":0,
-					"chance":100,
-					"effect":6
-				}
-			]
-		},
-		{ 	
 			"name":"Improved Chain Heal",
 			"key":"improved_chain_heal",
 			"type":"buff",
@@ -59,6 +26,21 @@
 					"level":60,
 					"baseCastTime":0,
 					"effect":0.4
+				}
+			]
+		},
+		{ 	
+			"name":"Riptide",
+			"key":"riptide_buff",
+			"type":"buff",
+			"image":"riptide.jpg",
+			"description":"Heals ${tickPower} every 3 sec. Increases the effectiveness of the caster´s Chain Heal spells cast directly on this target by ${effect}%.",
+			"ranks":[
+				{	"rank":1,
+					"level":60,
+					"baseCastTime":0,
+					"tickPower":133,
+					"effect": 25
 				}
 			]
 		}

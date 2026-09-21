@@ -15,7 +15,7 @@
 			"name":"tidal_focus",
 			"maxRank":5,
 			"rankIncrement":1,
-			"description":"Reduces the Mana cost of your healing spells by ${rankIncrement}%.",
+			"description":"Reduces the Mana cost of your healing spells by ${rankIncrement}% and improves your chance to hit by ${rankIncrement}%.",
 			"image":"tidal_focus.jpg",
 			"affectedSpells": [
 				"heal"
@@ -29,6 +29,17 @@
 			"image":"tidal_mastery.jpg",
 			"affectedSpells": [
 				"heal"
+			]
+		},
+		{
+			"name":"healing_way",
+			"maxRank":3,
+			"rankIncrement":8.33,
+			"decimalPlaces":0,
+			"description":"Increases the amount healed by your Healing Wave spell by ${rankIncrement}%.",
+			"image":"healing_way.jpg",
+			"affectedSpells": [
+				"Healing Wave"
 			]
 		},
 		{

@@ -2,6 +2,18 @@
 	"class":"priest",
 	"talents": [
 		{
+			"name":"twin_disciplines",
+			"maxRank":5,
+			"rankIncrement":1,
+			"decimalPlaces":0,
+			"description":"Increases the damage and healing of your instant cast spells by ${rankIncrement}%.",
+			"image":"twin_disciplines.jpg",
+			"affectedSpells": [
+				"Renew",
+				"Prayer of Mending"
+			]
+		},
+		{
 			"name":"mental_agility",
 			"maxRank":3,
 			"rankIncrement":3.33,

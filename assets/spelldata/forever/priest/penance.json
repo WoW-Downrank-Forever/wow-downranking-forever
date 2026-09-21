@@ -1,0 +1,32 @@
+{
+	"class":"priest",
+	"name":"Penance",
+	"type":"heal",
+	"description":"Launches a volley of holy light at the target, causing ${dmgMax} Holy damage to an enemy, or ${powerMax} healing to an ally. Instantly and every 1 sec for 2 sec.",
+	"notes": [
+		{
+			"author": {
+				"name": "Ozgar",
+				"description": "Founder and creator of <a href='https://www.wowdownrank.com' title='Click to visit wowdownrank.com'>Ozgar's Downranking Guide & Tool</a>."
+			},
+			"note": ""
+		}
+	],
+	"critable":true,
+	"ranks":[
+		{	"rank":1,
+			"level":30,
+			"cost":100,
+			"range":40,
+			"baseCastTime":3,
+			"channeled":true,
+			"dmgMin":96,
+			"dmgMax":96,
+			"powerMin":233,
+			"powerMax":233,
+			"tickInterval":0,
+			"tickDuration":0,
+			"tickPower":0
+		}
+	]
+}

@@ -48,7 +48,6 @@ function calculatePowerForever(healingPower, spellData, rank){
 function calculatePowerClassic(healingPower, spellData, rank){
 	let rankIndex = Math.min(Math.max(rank - 1, 0), spellData.ranks.length-1);
 	let rankData = spellData.ranks[rankIndex];
-	let nextRankLevel = rankIndex < spellData.ranks.length - 1 ? spellData.ranks[rankIndex+1].level : undefined;
 	let directPower = 0;
 	let overTimePower = 0;
 	let directExtraPower = 0;
@@ -219,6 +218,14 @@ function getTalentPowerCoefficient(className, spellName, spellType){
 				}
 			}
 			talent = getTalentByName('improved_renew');
+			if(talent.length > 0) {
+				data = talent.data("talent");
+				if(isAffected(spellName, spellType, data)){
+					rank = talent.data("current-rank");
+					powerCoef *=  (1 + ((data.rankIncrement * rank) / 100));
+				}
+			}
+			talent = getTalentByName('twin_disciplines');
 			if(talent.length > 0) {
 				data = talent.data("talent");
 				if(isAffected(spellName, spellType, data)){

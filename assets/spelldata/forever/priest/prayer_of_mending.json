@@ -1,0 +1,31 @@
+{
+	"class":"priest",
+	"name":"Prayer of Mending",
+	"type":"heal",
+	"description":"Places a spell on the target that heals them for ${powerMax} the next time they take damage or receive non-periodic healing. When the heal occurs, Prayer of Mending jumps to a party or raid member within 20 yards. Jumps up to 5 times and lasts 30 sec after each jump. This spell can only be placed on one target at a time per caster.",
+	"notes": [
+		{
+			"author": {
+				"name": "",
+				"description": ""
+			},
+			"note": ""
+		}
+	],
+	"critable":true,
+	"directCoeff":0.429,
+	"ranks":[
+		{	"rank":1,
+			"level":40,
+			"cost":210,
+			"range":40,
+			"baseCastTime":0,
+			"powerMin":312,
+			"powerMax":333,
+			"tickInterval":0,
+			"tickDuration":0,
+			"tickPower":0,
+			"cooldown":10
+		}
+	]
+}

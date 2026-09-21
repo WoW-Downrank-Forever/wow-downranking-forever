@@ -1,7 +1,7 @@
 const classSpells = {
 	"druid": ["healing_touch", "regrowth", "rejuvenation", "wild_growth"],
 	"paladin": ["flash_of_light", "holy_light", "holy_shock"],
-	"priest": ["flash_heal", "greater_heal", "heal", "renew"],
+	"priest": ["flash_heal", "greater_heal", "heal", "renew", "penance", "binding_heal", "prayer_of_mending"],
 	"shaman": ["chain_heal", "healing_wave", "lesser_healing_wave"]
 }
 
@@ -262,6 +262,7 @@ function buildTalentTooltip(talent, rank) {
 function buildTooltipHtmlForSpell(spell, rank, cssClass="", footer=""){
 	rank = Math.min(Math.max(rank - 1, 0), spell.ranks.length-1);
 	let baseCastTime = spell.ranks[rank].baseCastTime === 0 ? 'Instant' : spell.ranks[rank].baseCastTime + " sec cast";
+	baseCastTime = spell.ranks[rank].channeled ? "Channeled" : baseCastTime;
 
 	return 	`<div class="spell-tooltip ${cssClass}">
 				<div class="header">

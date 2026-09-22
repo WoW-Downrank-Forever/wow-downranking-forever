@@ -35,8 +35,8 @@
             "powerMax":0,
             "tickFrequency":3,
             "tickDuration":12,
-            "tickPower":14,
-            "tickTotal":56
+            "tickPower":12,
+            "tickTotal":48
         },
         {	"rank":3,
             "level":16,
@@ -47,8 +47,8 @@
             "powerMax":0,
             "tickFrequency":3,
             "tickDuration":12,
-            "tickPower":29,
-            "tickTotal":116
+            "tickPower":23,
+            "tickTotal":92
         },
         {	"rank":4,
             "level":22,
@@ -59,8 +59,8 @@
             "powerMax":0,
             "tickFrequency":3,
             "tickDuration":12,
-            "tickPower":45,
-            "tickTotal":180
+            "tickPower":32,
+            "tickTotal":128
         },
         {	"rank":5,
             "level":28,
@@ -71,8 +71,8 @@
             "powerMax":0,
             "tickFrequency":3,
             "tickDuration":12,
-            "tickPower":61,
-            "tickTotal":244
+            "tickPower":42,
+            "tickTotal":168
         },
         {	"rank":6,
             "level":34,
@@ -83,8 +83,8 @@
             "powerMax":0,
             "tickFrequency":3,
             "tickDuration":12,
-            "tickPower":76,
-            "tickTotal":304
+            "tickPower":51,
+            "tickTotal":204
         },
         {	"rank":7,
             "level":40,
@@ -95,8 +95,8 @@
             "powerMax":0,
             "tickFrequency":3,
             "tickDuration":12,
-            "tickPower":97,
-            "tickTotal":388
+            "tickPower":71,
+            "tickTotal":284
         },
         {	"rank":8,
             "level":46,
@@ -107,8 +107,8 @@
             "powerMax":0,
             "tickFrequency":3,
             "tickDuration":12,
-            "tickPower":122,
-            "tickTotal":488
+            "tickPower":94,
+            "tickTotal":376
         },
         {	"rank":9,
             "level":52,
@@ -119,8 +119,8 @@
             "powerMax":0,
             "tickFrequency":3,
             "tickDuration":12,
-            "tickPower":152,
-            "tickTotal":608
+            "tickPower":124,
+            "tickTotal":496
         },
         {	"rank":10,
             "level":58,
@@ -131,21 +131,8 @@
             "powerMax":0,
             "tickFrequency":3,
             "tickDuration":12,
-            "tickPower":189,
-            "tickTotal":756
-        },
-        {	"rank":11,
-            "level":60,
-            "cost":360,
-            "range":40,
-            "baseCastTime":0,
-            "powerMin":0,
-            "powerMax":0,
-            "tickFrequency":3,
-            "tickDuration":12,
-            "tickPower":222,
-            "tickTotal":888,
-            "tablet":true
+            "tickPower":161,
+            "tickTotal":644
         }
     ]
 }

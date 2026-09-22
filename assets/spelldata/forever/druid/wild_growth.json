@@ -25,6 +25,30 @@
 			"tickDuration":7,
 			"tickPower":40.714,
 			"tickTotal":285
+		},
+		{	"rank":2,
+			"level":50,
+			"cost":755,
+			"range":40,
+			"baseCastTime":0,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":1,
+			"tickDuration":7,
+			"tickPower":60,
+			"tickTotal":420
+		},
+		{	"rank":3,
+			"level":60,
+			"cost":1050,
+			"range":40,
+			"baseCastTime":0,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":1,
+			"tickDuration":7,
+			"tickPower":97,
+			"tickTotal":679
 		}
 	]
 }

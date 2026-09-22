@@ -1,5 +1,5 @@
 const classSpells = {
-	"druid": ["healing_touch", "regrowth", "rejuvenation", "wild_growth"],
+	"druid": ["healing_touch", "regrowth", "rejuvenation", "tranquility", "wild_growth"],
 	"paladin": ["flash_of_light", "holy_light", "holy_shock"],
 	"priest": ["flash_heal", "greater_heal", "heal", "renew", "penance", "binding_heal", "prayer_of_mending"],
 	"shaman": ["chain_heal", "healing_wave", "lesser_healing_wave", "riptide"],
@@ -125,7 +125,7 @@ function buildSpellTableRow(healingPower, spellData, rank) {
 	let HES = calculateHES(HpME, HpS);
 	let directBaseCoefficient = getDirectSpellCoeficient(spellData, rank);
 	let overTimeBaseCoefficient = getOverTimeCoeficient(spellData, rank);
-	let levelPenaltyCoefficient = getSubLevel20Penalty(spellData.ranks[rank-1].level)*(expansion === 'tbc' ? getDownrankPenalty(spellData, rank) : 1);
+	let levelPenaltyCoefficient = getDownrankPenalty(spellData, rank);
 	let talentAndBuffCoefficient = getTalentPowerCoefficient(spellData.class, spellData.name, spellData.type) * getBuffPowerCoefficient(spellData.class, spellData.name, spellData.type);
 	let bonusHealingCoefficient = getTalentExtraPowerCoefficient(spellData.class, spellData.name, spellData.type);
 	let directCoefficient = directBaseCoefficient * levelPenaltyCoefficient * talentAndBuffCoefficient;
@@ -283,7 +283,6 @@ function buildTooltipHtmlForSpell(spell, rank, cssClass="", footer=""){
 }
 
 function buildSpellHtmlForClass(className, onClick, container){
-	var path = `assets/spelldata/${expansion}/${className}/`
 	var html = "";
 	classSpells[className].forEach(function(spellName){
 		loadSpellData(className, spellName);
@@ -308,8 +307,6 @@ function buildTalentHtmlForClass(talentData){
 		target.addClass("hidden");
 	}
 }
-
-
 
 function buildTalentIcon(className, talentData, rank){
 	return `<div id="talent-${talentData.name}" class="talent-icon" data-class-name="${className}" data-talent='${JSON.stringify(talentData)}' data-current-rank="${rank}" data-direction="up">

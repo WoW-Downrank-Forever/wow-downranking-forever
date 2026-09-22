@@ -1,0 +1,71 @@
+{
+	"class":"druid",
+	"name":"Tranquility",
+	"type":"heal",
+	"description":"Regenerates all nearby party members within ${range} yards for ${tickPower} every ${tickFrequency} sec for ${tickDuration} sec. Druid must chanel to maintain the spell.",
+	"notes": [
+		{
+			"author": {
+				"name": "",
+				"description": ""
+			},
+			"note": ""
+		}
+	],
+	"critable":false,
+	"overTimeCoeff":0.067,
+	"ranks":[
+		{	"rank":1,
+			"level":30,
+			"cost":375,
+			"range":20,
+			"baseCastTime":10,
+			"channeled":true,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":2,
+			"tickDuration":10,
+			"tickPower":87,
+			"tickTotal":435
+		},
+		{	"rank":2,
+			"level":40,
+			"cost":505,
+			"range":40,
+			"baseCastTime":0,
+			"channeled":true,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":2,
+			"tickDuration":10,
+			"tickPower":129,
+			"tickTotal":645
+		},
+		{	"rank":3,
+			"level":50,
+			"cost":695,
+			"range":40,
+			"baseCastTime":0,
+			"channeled":true,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":2,
+			"tickDuration":10,
+			"tickPower":196,
+			"tickTotal":980
+		},
+		{	"rank":4,
+			"level":60,
+			"cost":925,
+			"range":40,
+			"baseCastTime":0,
+			"channeled":true,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":2,
+			"tickDuration":10,
+			"tickPower":285,
+			"tickTotal":1425
+		}
+	]
+}

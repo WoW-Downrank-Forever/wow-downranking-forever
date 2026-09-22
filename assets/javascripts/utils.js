@@ -177,6 +177,11 @@ function getCritChance(){
 	return parseInt(critChance);
 }
 
+function getLevel(){
+	let level = Math.max(1, Math.min(60, $('#level').val()));
+	return parseInt(level);
+}
+
 function getHasteCoefficient(){
 	return expansion === 'tbc' ? 1-roundNumber(Math.max(0, Math.min(3000, $('#haste-rating').val()) / 15.8), 1)/100 : 1;
 }

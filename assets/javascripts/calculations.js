@@ -70,8 +70,6 @@ function calculatePowerClassic(healingPower, spellData, rank){
 	    	break;
 	}
 	directExtraPower += getBuffExtraPower(spellData.class, spellData.name, spellData.type)
-	directExtraPower *= getSubLevel20Penalty(rankData.level);
-	overTimeExtraPower *= getSubLevel20Penalty(rankData.level);
 
 	directPower *= getTalentPowerCoefficient(spellData.class, spellData.name, spellData.type);
 	let totalDirectPower = (directPower + directExtraPower) * getCritChanceCoefficient(getEffectiveCritChance(spellData.class, spellData.name, spellData.type));
@@ -710,6 +708,7 @@ function getSubLevel20Penalty(spellLevel){
  * @return 	{double} 	downrankPenalty 	Returns the penalty calculated by the formula above. If the result is above 1, it returns 1.
  */
 function getDownrankPenalty(spellData, rank){
+	return 1;
 	// Directly passing rank in here will give the next rank, since the index starts at 0. 
 	// If there is no next rank, the max rank is being used and there is no penalty.
 	if (spellData.ranks[rank]) {

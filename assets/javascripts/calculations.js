@@ -70,6 +70,8 @@ function calculatePowerClassic(healingPower, spellData, rank){
 	    	break;
 	}
 	directExtraPower += getBuffExtraPower(spellData.class, spellData.name, spellData.type)
+	directExtraPower *= getLevelPenalty(spellData, rank);
+	overTimeExtraPower *= getLevelPenalty(spellData, rank);
 
 	directPower *= getTalentPowerCoefficient(spellData.class, spellData.name, spellData.type);
 	let totalDirectPower = (directPower + directExtraPower) * getCritChanceCoefficient(getEffectiveCritChance(spellData.class, spellData.name, spellData.type));
@@ -85,7 +87,6 @@ function calculatePowerClassic(healingPower, spellData, rank){
 function calculatePowerTbc(healingPower, spellData, rank){
 	let rankIndex = Math.min(Math.max(rank - 1, 0), spellData.ranks.length-1);
 	let rankData = spellData.ranks[rankIndex];
-	let nextRankLevel = rankIndex < spellData.ranks.length - 1 ? spellData.ranks[rankIndex+1].level : undefined;
 	let directPower = 0;
 	let overTimePower = 0;
 	let directExtraPower = 0;
@@ -109,11 +110,9 @@ function calculatePowerTbc(healingPower, spellData, rank){
 	}
 	directExtraPower += getBuffExtraPower(spellData.class, spellData.name, spellData.type)
 	directExtraPower *= getTalentExtraPowerCoefficient(spellData.class, spellData.name, spellData.type);
-	directExtraPower *= getSubLevel20Penalty(rankData.level);
-	directExtraPower *= getDownrankPenalty(spellData, rank);
+	directExtraPower *= getLevelPenalty(spellData, rank);
 	overTimeExtraPower *= getTalentExtraPowerCoefficient(spellData.class, spellData.name, spellData.type);
-	overTimeExtraPower *= getSubLevel20Penalty(rankData.level);
-	overTimeExtraPower *= getDownrankPenalty(spellData, rank);
+	overTimeExtraPower *= getLevelPenalty(spellData, rank);
 
 	let totalDirectPower = directPower + directExtraPower;
 	totalDirectPower *= getTalentPowerCoefficient(spellData.class, spellData.name, spellData.type);
@@ -708,11 +707,23 @@ function getSubLevel20Penalty(spellLevel){
  * @return 	{double} 	downrankPenalty 	Returns the penalty calculated by the formula above. If the result is above 1, it returns 1.
  */
 function getDownrankPenalty(spellData, rank){
-	return 1;
 	// Directly passing rank in here will give the next rank, since the index starts at 0. 
 	// If there is no next rank, the max rank is being used and there is no penalty.
 	if (spellData.ranks[rank]) {
 		return Math.min((spellData.ranks[rank].level - 1 + 5) / getCharacterLevel(), 1);
 	}
 	return 1;
+}
+
+function getLevelPenalty(spellData, rank){
+	switch(expansion) {
+		case 'classic':
+			return getSubLevel20Penalty(spellData.ranks[rank-1].level);
+		case 'forever':
+			return 1;
+		case 'tbc':
+			return getDownrankPenalty(spellData, rank) * getSubLevel20Penalty(spellData.ranks[rank-1].level);
+		default:
+			throw new Error("Unknown expansion: " + expansion);
+	}
 }

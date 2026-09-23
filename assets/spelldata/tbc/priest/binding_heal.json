@@ -22,7 +22,7 @@
 			"baseCastTime":1.5,
 			"powerMin":1053,
 			"powerMax":1350,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		}

@@ -2,7 +2,7 @@
 	"class":"priest",
 	"name":"Penance",
 	"type":"heal",
-	"description":"Launches a volley of holy light at the target, causing ${dmgMax} Holy damage to an enemy, or ${powerMax} healing to an ally. Instantly and every 1 sec for 2 sec.",
+	"description":"Launches a volley of holy light at the target, causing ${dmgMax} Holy damage to an enemy, or ${tickPower} healing to an ally. Instantly and every 1 sec for 2 sec.",
 	"notes": [
 		{
 			"author": {
@@ -13,6 +13,7 @@
 		}
 	],
 	"critable":true,
+	"overTimeCoeff":0.285,
 	"ranks":[
 		{	"rank":1,
 			"level":30,
@@ -20,13 +21,55 @@
 			"range":40,
 			"baseCastTime":3,
 			"channeled":true,
-			"dmgMin":96,
-			"dmgMax":96,
-			"powerMin":233,
-			"powerMax":233,
-			"tickInterval":0,
-			"tickDuration":0,
-			"tickPower":0
+			"dmgMin":81,
+			"dmgMax":81,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":1,
+			"tickDuration":3,
+			"tickPower":184
+		},
+		{	"rank":2,
+			"level":40,
+			"cost":185,
+			"range":40,
+			"baseCastTime":3,
+			"channeled":true,
+			"dmgMin":113,
+			"dmgMax":113,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":1,
+			"tickDuration":3,
+			"tickPower":291
+		},
+		{	"rank":3,
+			"level":50,
+			"cost":270,
+			"range":40,
+			"baseCastTime":3,
+			"channeled":true,
+			"dmgMin":180,
+			"dmgMax":180,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":1,
+			"tickDuration":3,
+			"tickPower":482
+		},
+		{	"rank":4,
+			"level":60,
+			"cost":355,
+			"range":40,
+			"baseCastTime":3,
+			"channeled":true,
+			"dmgMin":131,
+			"dmgMax":131,
+			"powerMin":0,
+			"powerMax":0,
+			"tickFrequency":1,
+			"tickDuration":3,
+			"tickPower":673
 		}
 	]
 }

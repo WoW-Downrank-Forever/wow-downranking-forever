@@ -8,6 +8,7 @@ function calculateMostEfficientRank(healingPower, spellData){
 	let bestHES = 0;
 
 	for(let rank = 1; rank <= spellData.ranks.length; rank++){
+		if(spellData.ranks[rank-1].level > getCharacterLevel()) continue;
 		if(!getAqReleased() && spellData.ranks[rank-1].tablet) continue;
 		let power = calculatePower(healingPower, spellData, rank);
 		let cost = calculateCost(spellData, rank);
@@ -59,11 +60,13 @@ function calculatePowerClassic(healingPower, spellData, rank){
 			break;
 	  	case "overTime":
 	  		overTimePower = rankData.tickPower * (rankData.tickDuration + getTalentTickDurationIncrease(spellData.class, spellData.name, spellData.type)) / rankData.tickFrequency;
+			overTimePower = (overTimePower);
 			overTimeExtraPower = healingPower * getOverTimeCoeficient(spellData, rank);
-	    	break;
+			break;
 	  	case "hybrid":
 	  		directPower = (rankData.powerMax + rankData.powerMin) / 2;
   			overTimePower = rankData.tickPower * (rankData.tickDuration + getTalentTickDurationIncrease(spellData.class, spellData.name, spellData.type)) / rankData.tickFrequency;
+			overTimePower = (overTimePower);
 			let coefficient = getHybridCoeficients(spellData, rank);
 	  		directExtraPower = healingPower * coefficient["direct"];
 	  		overTimeExtraPower = healingPower * coefficient["overTime"];

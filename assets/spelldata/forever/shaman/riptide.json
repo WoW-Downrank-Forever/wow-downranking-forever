@@ -2,7 +2,7 @@
 	"class":"shaman",
 	"name":"Riptide",
 	"type":"heal",
-	"description":"Heals a friendly target for ${powerMax}, an additional ${tickPower} over 15 sec, and increases the effectiveness of your Chain Heal casts directly on that target by 25%.",
+	"description":"Heals a friendly target for ${powerMax}, an additional ${tickTotal} over 15 sec, and increases the effectiveness of your Chain Heal casts directly on that target by 25%.",
 	"notes": [
 		{
 			"author": {
@@ -13,17 +13,44 @@
 		}
 	],
 	"critable":true,
+	"directCoeff":0.214,
+	"overTimeCoeff":0.1,
 	"ranks":[
 		{	"rank":1,
 			"level":40,
 			"cost":245,
 			"range":40,
 			"baseCastTime":0,
-			"powerMin":333,
-			"powerMax":333,
-			"tickInterval":3,
+			"powerMin":484,
+			"powerMax":535,
+			"tickFrequency":3,
 			"tickDuration":15,
-			"tickPower":666
+			"tickPower":89,
+			"tickTotal":445
+		},
+		{	"rank":2,
+			"level":40,
+			"cost":245,
+			"range":40,
+			"baseCastTime":0,
+			"powerMin":613,
+			"powerMax":678,
+			"tickFrequency":3,
+			"tickDuration":15,
+			"tickPower":115,
+			"tickTotal":575
+		},
+		{	"rank":3,
+			"level":40,
+			"cost":245,
+			"range":40,
+			"baseCastTime":0,
+			"powerMin":799,
+			"powerMax":883,
+			"tickFrequency":3,
+			"tickDuration":15,
+			"tickPower":161,
+			"tickTotal":805
 		}
 	]
 }

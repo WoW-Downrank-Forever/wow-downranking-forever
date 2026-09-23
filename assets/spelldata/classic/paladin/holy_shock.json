@@ -21,7 +21,7 @@
 			"baseCastTime":0,
 			"powerMin":204,
 			"powerMax":220,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		},
@@ -32,7 +32,7 @@
 			"baseCastTime":0,
 			"powerMin":279,
 			"powerMax":301,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		},
@@ -43,7 +43,7 @@
 			"baseCastTime":0,
 			"powerMin":365,
 			"powerMax":395,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		}

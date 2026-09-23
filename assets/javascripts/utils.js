@@ -15,7 +15,7 @@ function initMobile() {
 	}
 }
 
-function refreshTooltip(){
+async function refreshTooltip(){
 	let className = getSelectedClassName();
 	let spellName = getSelectedSpellName();
 	if(className && spellName){
@@ -29,7 +29,7 @@ function refreshTooltip(){
 			target: '#tooltip',
 			result_container: '#result'
 		}
-		loadSpellData(className, spellName, updateTooltip, params);
+		await loadSpellData(className, spellName, updateTooltip, params);
 	}
 }
 
@@ -122,30 +122,30 @@ function toggleBuff(elem){
 	refreshTooltip();
 }
 
-function showSpellAffectingTalentsFor(className){
+async function showSpellAffectingTalentsFor(className){
 	if(!className) {
 		$('#talent-selection').addClass('hidden');
 	} else {
 		$('#talent-selection').addClass('hidden');
-		loadTalentData(className, buildTalentHtmlForClass);
+		await loadTalentData(className, buildTalentHtmlForClass);
 	}
 }
 
-function showSpellSelectionFor(className, callback, target){
+async function showSpellSelectionFor(className, callback, target){
 	let container = target.find('.navbar');
 	if(!className) {
 		target.addClass('hidden');
 	} else {
-		buildSpellHtmlForClass(className, callback, container);
+		await buildSpellHtmlForClass(className, callback, container);
 		target.removeClass('hidden');
 	}
 }
 
-function showBuffSelectionFor(className){
+async function showBuffSelectionFor(className){
 	if(!className) {
 		$('#buff-selection').addClass('hidden');
 	} else {
-		loadBuffData(className, buildBuffHtmlForClass);
+		await loadBuffData(className, buildBuffHtmlForClass);
 	}
 }
 
@@ -154,8 +154,9 @@ function setRandomBackground() {
 	$('body').css('background', `linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url("../images/${backgrounds[Math.floor(Math.random() * backgrounds.length)]}"`);
 }
 
-function newRandomTip(){
-	loadJSON('/data/tips.json', updateTip);
+async function newRandomTip(){
+	const tipData = await loadJSON('assets/data/tips.json');
+	updateTip(tipData);
 }
 
 function updateTip(tipData){
@@ -175,11 +176,6 @@ function showResult(id){
 function getCritChance(){
 	let critChance = Math.max(0, Math.min(100, $('#crit-chance').val()));
 	return parseInt(critChance);
-}
-
-function getLevel(){
-	let level = Math.max(1, Math.min(60, $('#level').val()));
-	return parseInt(level);
 }
 
 function getHasteCoefficient(){
@@ -207,7 +203,8 @@ function getSelectedSpellName(){
 }
 
 function getCharacterLevel(){
-	return expansion === 'tbc' ? 70 : 60;
+	let level = Math.max(1, Math.min(60, $('#level').val()));
+	return parseInt(level);
 }
 
 function getBuffByName(buffName){
@@ -389,48 +386,65 @@ function getCachedSpellData(className, spellName) {
 	return cache[`/spelldata/${expansion}/${className}/${spellName}.json`];
 }
 
-function loadSpellData(className, spellName, callback, param){
-	let spellPath = `/spelldata/${expansion}/${className}/${spellName}.json`;
-	loadJSON(spellPath, callback, param);
+async function loadSpellData(className, spellName, callback, param){
+    const path = `assets/spelldata/forever/${className}/${spellName}.json`;
+    try {
+        const data = await loadJSON(path, callback, param);
+        return data;
+    } catch (err) {
+        console.error('Failed to load spell data', path, err);
+        throw err;
+    }
 }
 
-function loadTalentData(className, callback){
-	let talentPath = `/talents/${expansion}/${className}.json`
-	loadJSON(talentPath, callback);
+async function loadTalentData(className, callback){
+    let talentPath = `assets/talents/forever/${className}.json`;
+    try {
+        const data = await loadJSON(talentPath, callback);
+        return data;
+    } catch (err) {
+        console.error('Failed to load talent data', talentPath, err);
+        throw err;
+    }
 }
 
-function loadBuffData(className, callback){
-	let spellPath = `/buffs/${expansion}/${className}.json`;
-	loadJSON(spellPath, callback);
+async function loadBuffData(className, callback){
+    let spellPath = `assets/buffs/forever/${className}.json`;
+    try {
+        const data = await loadJSON(spellPath, callback);
+        return data;
+    } catch (err) {
+        console.error('Failed to load buff data', spellPath, err);
+        throw err;
+    }
 }
 
-function loadJSON(path, callback, param) {
-	if(cache[path]) {
-		if(typeof callback === 'function') {
-			callback(cache[path], param);
-			return;
-		}
-		else {
-			return cache[path];
-		}
-	}
-	return (function () {
-	    var json = null;
-	    $.ajax({
-	        'global': false,
-	        'data': param,
-	        'url': `assets${path}`,
-	        'dataType': "json",
-	        'success': !!callback ? 
-	        	function(data) {
-        			cache[path] = data;
-        			callback(data, param);
-	        	} : 
-	        	function (data) {
-        			cache[path] = data;
-	        	}
-	    });
-	})();
+async function loadJSON(path, callback, param) {
+    if (cache[path]) {
+        if (typeof callback === 'function') {
+            callback(cache[path], param);
+        }
+        return cache[path];
+    }
+
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            global: false,
+            data: param,
+            url: path, // path should be the full relative URL passed in by callers
+            dataType: "json",
+            success: function(data) {
+                cache[path] = data;
+                if (typeof callback === 'function') {
+                    try { callback(data, param); } catch (e) { /* ignore callback errors */ }
+                }
+                resolve(data);
+            },
+            error: function(xhr, status, err) {
+                reject(err || status);
+            }
+        });
+    });
 }
 
 function eventFire(el, etype){

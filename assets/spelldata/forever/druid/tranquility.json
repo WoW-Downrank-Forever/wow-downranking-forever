@@ -25,8 +25,8 @@
 			"powerMax":0,
 			"tickFrequency":2,
 			"tickDuration":10,
-			"tickPower":87,
-			"tickTotal":435
+			"tickPower":91,
+			"tickTotal":455
 		},
 		{	"rank":2,
 			"level":40,
@@ -38,8 +38,8 @@
 			"powerMax":0,
 			"tickFrequency":2,
 			"tickDuration":10,
-			"tickPower":129,
-			"tickTotal":645
+			"tickPower":133,
+			"tickTotal":665
 		},
 		{	"rank":3,
 			"level":50,
@@ -51,8 +51,8 @@
 			"powerMax":0,
 			"tickFrequency":2,
 			"tickDuration":10,
-			"tickPower":196,
-			"tickTotal":980
+			"tickPower":201,
+			"tickTotal":1005
 		},
 		{	"rank":4,
 			"level":60,

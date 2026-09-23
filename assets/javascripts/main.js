@@ -10,7 +10,7 @@ $(document).ready(function(){
 	newRandomTip();
 });
 
-function onClassClicked(elem){
+async function onClassClicked(elem){
 	let target = $(elem);
 	let navbar = target.closest('.navbar');
 	hideResult();
@@ -31,9 +31,9 @@ function onClassClicked(elem){
 		} else {
 			hideSpirit();
 		}
-		showSpellAffectingTalentsFor(className);
-		showSpellSelectionFor(className, 'onSpellClicked(this)', $('#spell-selection'));
-		showBuffSelectionFor(className);
+		await showSpellAffectingTalentsFor(className);
+		await showSpellSelectionFor(className, 'onSpellClicked(this)', $('#spell-selection'));
+		await showBuffSelectionFor(className);
 	}
 }
 

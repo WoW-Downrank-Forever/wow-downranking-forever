@@ -19,9 +19,9 @@
 			"cost":260,
 			"range":40,
 			"baseCastTime":2.5,
-			"powerMin":332,
-			"powerMax":381,
-			"tickInterval":0,
+			"powerMin":245,
+			"powerMax":282,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		},
@@ -30,9 +30,9 @@
 			"cost":315,
 			"range":40,
 			"baseCastTime":2.5,
-			"powerMin":419,
-			"powerMax":479,
-			"tickInterval":0,
+			"powerMin":325,
+			"powerMax":373,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		},
@@ -41,9 +41,9 @@
 			"cost":405,
 			"range":40,
 			"baseCastTime":2.5,
-			"powerMin":567,
-			"powerMax":646,
-			"tickInterval":0,
+			"powerMin":473,
+			"powerMax":540,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		}

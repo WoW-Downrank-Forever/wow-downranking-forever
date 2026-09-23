@@ -21,7 +21,7 @@
 			"baseCastTime":3,
 			"powerMin":924,
 			"powerMax":1039,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		},
@@ -32,7 +32,7 @@
 			"baseCastTime":3,
 			"powerMin":1178,
 			"powerMax":1318,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		},
@@ -43,7 +43,7 @@
 			"baseCastTime":3,
 			"powerMin":1470,
 			"powerMax":1642,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		},
@@ -54,7 +54,7 @@
 			"baseCastTime":3,
 			"powerMin":1835,
 			"powerMax":2044,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		},
@@ -65,7 +65,7 @@
 			"baseCastTime":3,
 			"powerMin":2006,
 			"powerMax":2235,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		},
@@ -76,7 +76,7 @@
 			"baseCastTime":3,
 			"powerMin":2107,
 			"powerMax":2444,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		},
@@ -87,7 +87,7 @@
 			"baseCastTime":3,
 			"powerMin":2414,
 			"powerMax":2803,
-			"tickInterval":0,
+			"tickFrequency":0,
 			"tickDuration":0,
 			"tickPower":0
 		}

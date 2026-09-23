@@ -1,8 +1,8 @@
 const classSpells = {
-	"druid": ["healing_touch", "regrowth", "rejuvenation", "tranquility", "wild_growth"],
-	"paladin": ["flash_of_light", "holy_light", "holy_shock"],
-	"priest": ["flash_heal", "greater_heal", "heal", "renew", "penance", "binding_heal", "prayer_of_mending"],
-	"shaman": ["chain_heal", "healing_wave", "lesser_healing_wave", "riptide"],
+	"druid": ["healing_touch", "rejuvenation", "regrowth", "tranquility", "wild_growth"],
+	"paladin": ["holy_light", "flash_of_light", "holy_shock"],
+	"priest": ["lesser_heal", "renew", "heal", "holy_nova","flash_heal", "prayer_of_healing", "binding_heal", "penance", "greater_heal"],
+	"shaman": ["healing_wave", "lesser_healing_wave", "chain_heal", "riptide"],
 }
 
 function buildBreakpointsTable(spellData){
@@ -68,6 +68,7 @@ function buildSpellTable(spellData, healingPower) {
 	let rows = "";
 
 	for(let r = 0; r < spellData.ranks.length; r++){
+		if(spellData.ranks[r].level > getCharacterLevel()) continue;
 		rows += buildSpellTableRow(healingPower, spellData, r+1);
 	}
 
@@ -83,6 +84,7 @@ function buildSpellTable(spellData, healingPower) {
 					<thead>
 						<tr>
 							<th data-sort-mode="no">Rank</th>
+							<th data-sort-mode="no">Level</th>
 							<th>Healing</th>
 							<th data-sort-mode="asc">Mana cost</th>
 							<th data-sort-mode="no">${getSpellType(spellData.ranks[0]) === 'overTime' ? 'Duration' : 'Cast time'}</th>
@@ -117,6 +119,7 @@ function buildSpellTable(spellData, healingPower) {
 }
 
 function buildSpellTableRow(healingPower, spellData, rank) {
+	let level = spellData.ranks[rank-1].level;
 	let power = calculatePower(healingPower, spellData, rank);
 	let cost = calculateCost(spellData, rank);
 	let castTime = calculateCastTime(spellData, rank);
@@ -133,6 +136,7 @@ function buildSpellTableRow(healingPower, spellData, rank) {
 	let isChainHeal = spellData.name === 'Chain Heal';
 	let row =`<tr>
 				<td data-sort-value="${rank}">${rank}${isChainHeal ? ' (1 target)' : ''}</td>
+				<td data-sort-value="${level}">${level}</td>
 				<td data-sort-value="${roundNumber(power, 0)}">${roundNumber(power, 0)}</td>
 				<td data-sort-value="${roundNumber(cost, 0)}">${roundNumber(cost, 0)}</td>
 				<td data-sort-value="${roundNumber(castTime, 1)}" style="white-space: nowrap;">${roundNumber(castTime, 1)} sec</td>
@@ -282,12 +286,15 @@ function buildTooltipHtmlForSpell(spell, rank, cssClass="", footer=""){
 			</div>`
 }
 
-function buildSpellHtmlForClass(className, onClick, container){
+async function buildSpellHtmlForClass(className, onClick, container){
 	var html = "";
-	classSpells[className].forEach(function(spellName){
-		loadSpellData(className, spellName);
-		html += `<a class="wow-spell icon-medium" data-class-name="${className}" data-spell-name="${spellName}" title="${toTitleCase(spellName)}" alt="${toTitleCase(spellName)}" style="background-image: url(assets/images/${spellName}.jpg)" onClick="${onClick}"></a>`
-	})
+	let spellData;
+	for (const spellName of classSpells[className]) {
+		spellData = await loadSpellData(className, spellName);
+		if (spellData.ranks[0].level <= getCharacterLevel()) {
+			html += `<a id="spell-${spellName}" class="wow-spell icon-medium" data-class-name="${className}" data-spell-name="${spellName}" title="${toTitleCase(spellName)}" alt="${toTitleCase(spellName)}" style="background-image: url(assets/images/${spellName}.jpg)" onClick="${onClick}"></a>`;
+		}
+	}
 	container.html(html);
 }
 

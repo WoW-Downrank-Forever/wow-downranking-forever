@@ -114,8 +114,8 @@
 			<h1 class="title">How it works!</h1>
 			<h3>Introduction</h3>
 			<p id="introduction">
-				This version  has been updated to follow World of Warcraft: Forever! <b class="red">Many details are still a mystery, and things may be missing or wrong. If you find anything out of order, please let me know! Contact information is at the bottom of the page.</b></br></br>
-				The summer of 2019, right before Classic was coming up I was feeling too exited to play any other game, and since I still had no key to the Beta, I decided to make better use of my time than drooling over Beta videos and streams. The result is a tool that will help players choose the most mana efficient healing spell ranks!</br></br>
+				This is the World of Warcraft: Forever downranking tool! If you are looking for the Classic version you can find it right <a href="https://wowdownrank.ozgar.se" target="_blank">here</a>!</br></br>
+				<br><b class="red">DISCLAIMER: Many details are still a mystery, and things may be missing or wrong. If you find anything out of order, please let me know! Contact information is at the bottom of the page.</b></br></br>
 			</p>
 			<p>
 				The rank selection is based on a <i>Healing Efficiency Score</i> (<b class="yellow">HES</b>), which is derived from the combination of <i>Healing per Mana Efficiency</i> (<b class="yellow">HPME</b>) and <i>Healing per Second</i> (<b class="yellow">HpS</b>). A detailed description can be found in the <a href="#calc">calculations section</a></br></br>
@@ -191,7 +191,9 @@
 			</p>
 			<h4>Spells below level 20</h4>
 			<p>
-				Casting a spell that can be learnt below level 20 incurs a significant penalty to the coefficient of the spell. This was introduced during Vanilla WoW in order to counter the unforseen power of heavily downranking spells.
+				In classic casting a spell that can be learnt below level 20 incurs a significant penalty to the coefficient of the spell. This was introduced during Vanilla WoW in order to counter the unforseen power of heavily downranking spells.
+
+				<b class="yellow">This penalty has been removed in WoW:Forever and is no longer part of the calculation.</b>
 
 				The formula for this is:
 
@@ -210,13 +212,9 @@
 
 			<h4>Putting it all together</h4>
 			<p>
-				Now when we have all the parts we can calculate the final effective coefficient for the spell which is defined by:
+				Now when we have all the parts the actual power of the spell is:
 
-				<code>[Effective Coefficient] = [Basic Coefficient] * [Sub Level 20 Coefficient]</code>
-
-				Thus the actual power of the spell is:
-
-				<code>[Actual Power] = [Base power] + [+Power] * [Effective Coefficient]</code>
+				<code>[Actual Power] = [Base power] + [+Power] * [Basic Coefficient]</code>
 
 				The result of the function above is what is used when calculating <b class="yellow">HpME</b>, <b class="yellow">HpS</b> and finally <b class="yellow">HES</b>.
 
@@ -237,26 +235,26 @@
 				A few notes on this process:
 				<ul>
 					<li>All cast times are considered before any spell haste or casting time talents are applied.</li>
-					<li>All talents or buffs that increase the damage or healing from spells are applied after the coefficient calculations.</li>
+					<li>All talents or buffs that increase the damage or healing from spells are applied to the base power of the spell and after the coefficient calculations.</li>
 					<li>All DoT/HoT durations are considered before any duration buffs or talents are applied. Keep in mind that these talents simply add extra ticks of damage or healing for the same amount that the spell would do otherwise.</li>
 				</ul>
 			</p>
 			<h4>Calculation example</h4>
 			<p>
-				As an example I will demonstrate how to determine the power of <b class="yellow">Rank 3 Healing Wave</b> with <b class="yellow">500 Healing Power</b>, and a <b class="yellow">10% Critical effect chance</b>.
+				As an example I will demonstrate how to determine the power of <b class="yellow">Rank 3 Healing Wave</b> with <b class="yellow">500 Healing Power</b>, and a <b class="yellow">10% Critical effect chance</b> where the caster has talents <b class="yellow">Healing Way 3/3</b> and <b class="yellow">Purification 5/5</b>.
 
 				<code>
-					[Base Power] = ([Base min Power] + [Base max Power]) / 2 = (129 + 155) / 2 = 142</br>
+					[Base Power] = ([Base min Power] + [Base max Power]) / 2 = (126 + 151) / 2 = 138.5</br>
 					[Basic Coefficient] = [Cast Time] / [Reference Cast Time] = 2.5 / 3.5 = 0.714</br>
-					[Sub Level 20 Coefficient] = 1 - ((20 - [Spell level]) * 0.0375) = 1 - ((20 - 12) * 0.0375) = 0.7</br>
-					[Effective Coefficient] = [Basic Coefficient] * [Sub Level 20 Coefficient] = 0.5</br>
+					[Healing Way Coefficient] = 1.25</br>
+					[Purification Coefficient] = 1.1</br>
 					[Crit Coefficient] = (1 + (1 + 10/100)) / 2 = 1.05
 				</code>
 				Which results in the actual power being:
 				<code>
-					[Actual Power] = ([Base Power] + ([Extra Power] * [Effective Coefficient])) * [Crit Coefficient]</br>
-				= (142 + (500 * 0.5)) * 1.05</br>
-				= 392 * 1.05 = <i class="yellow">412</i></br>
+					[Actual Power] = ([Base Power] * [Healing Way Coefficient] * [Purification Coefficient] + ([Extra Power] * [Basic Coefficient])) * [Crit Coefficient]</br>
+				= ((138.5 * 1.25 * 1.1) + (500 * 0.714)) * 1.05</br>
+				= (190.44 + 357) * 1.05 ≈ <i class="yellow">575</i></br>
 				</code>
 			</p>
 			<span class="btn pull-right">

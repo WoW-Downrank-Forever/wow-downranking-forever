@@ -169,7 +169,7 @@
 			</p>
 			<h4>Hybrid spells</h4>
 			<p>
-				Hybrid spells is a little bit more complicated, these are spells with both a direct effect and a Over-Time portion, such as <i>Regrowth</i>. The standard formula for hybrid spells is:
+				Hybrid spells is a little bit more complicated, these are spells with both a direct effect and a Over-Time portion. The standard formula for hybrid spells is:
 
 				<code>
 					[Over-Time part] = ([Duration] / 15) / (([Duration] / 15) + ([Cast Time] / 3.5))</br>
@@ -183,11 +183,14 @@
 					[Direct coefficient] = ([Cast Time / 3.5) * [Direct part]
 				</code>
 
-				<b class="red">DISCLAIMER:</b> Regrowth does not actually follow this standard formula and instead has its own spell specific coefficients as:
-				<code>
-					[Over-Time coefficient] = 0.497</br>
-					[Direct coefficient] = 0.286
-				</code>
+				<b class="yellow">NOTE:</b> Due to balancing, most hybrid spells have been given a fixed coefficient, and the formula above is not used.
+			</p>
+			<h4>Downrank Penalty</h4>
+			<p>
+				In order to counter the unforseen power of heavily downranking spells, a penalty was introduced to spells which can be learned at lower than your current level.
+				This penalty is applied to all spells that have a rank lower than the maximum rank available to the player. The penalty is calculated as follows:
+
+				<code>[Downranking Penalty] =  Maximum(0, Minimum(1, 1-0.05 * ([Character Level] - [Required level for the spell] - 16)))</code>
 			</p>
 			<h4>Spells below level 20</h4>
 			<p>
@@ -214,7 +217,7 @@
 			<p>
 				Now when we have all the parts the actual power of the spell is:
 
-				<code>[Actual Power] = [Base power] + [+Power] * [Basic Coefficient]</code>
+				<code>[Actual Power] = [Base power] + [+Power] * [Basic Coefficient] * [Downranking Penalty]</code>
 
 				The result of the function above is what is used when calculating <b class="yellow">HpME</b>, <b class="yellow">HpS</b> and finally <b class="yellow">HES</b>.
 
@@ -241,20 +244,21 @@
 			</p>
 			<h4>Calculation example</h4>
 			<p>
-				As an example I will demonstrate how to determine the power of <b class="yellow">Rank 3 Healing Wave</b> with <b class="yellow">500 Healing Power</b>, and a <b class="yellow">10% Critical effect chance</b> where the caster has talents <b class="yellow">Healing Way 3/3</b> and <b class="yellow">Purification 5/5</b>.
+				As an example I will demonstrate how to determine the power of <b class="yellow">Rank 7 Healing Wave</b> with <b class="yellow">500 Healing Power</b>, and a <b class="yellow">10% Critical effect chance</b> where the caster is <b class="yellow">Level 60</b> has talents <b class="yellow">Healing Way 3/3</b> and <b class="yellow">Purification 5/5</b>.
 
 				<code>
-					[Base Power] = ([Base min Power] + [Base max Power]) / 2 = (126 + 151) / 2 = 138.5</br>
+					[Base Power] = ([Base min Power] + [Base max Power]) / 2 = (654 + 755) / 2 = 704.5</br>
 					[Basic Coefficient] = [Cast Time] / [Reference Cast Time] = 2.5 / 3.5 = 0.714</br>
+					[Downrank Penalty] = 1 - (Maximum(0, 60 - 12 - 16) * 0.05) = 1 - (14 * 0.05) = 0.3</br>
 					[Healing Way Coefficient] = 1.25</br>
 					[Purification Coefficient] = 1.1</br>
 					[Crit Coefficient] = (1 + (1 + 10/100)) / 2 = 1.05
 				</code>
 				Which results in the actual power being:
 				<code>
-					[Actual Power] = ([Base Power] * [Healing Way Coefficient] * [Purification Coefficient] + ([Extra Power] * [Basic Coefficient])) * [Crit Coefficient]</br>
-				= ((138.5 * 1.25 * 1.1) + (500 * 0.714)) * 1.05</br>
-				= (190.44 + 357) * 1.05 ≈ <i class="yellow">575</i></br>
+					[Actual Power] = ([Base Power] * [Healing Way Coefficient] * [Purification Coefficient] + ([Extra Power] * [Basic Coefficient] * [Downrank Penalty])) * [Crit Coefficient]</br>
+				= ((704.5 * 1.25 * 1.1) + (500 * 0.714 * 0.8)) * 1.05</br>
+				= (968.69 + 285.6) * 1.05 ≈ <i class="yellow">1317</i></br>
 				</code>
 			</p>
 			<span class="btn pull-right">

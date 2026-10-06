@@ -718,12 +718,30 @@ function getDownrankPenalty(spellData, rank){
 	return 1;
 }
 
+/**
+ * Casting a spell that is lower than the maximum rank available at the current character level incurs a penalty to the coefficient of the spell. 
+ * The formula for this is:  MIN(1, 1-0.05*([Character Level]-[Level of next Rank + 16]))
+ * 
+ * @param 	{Object}	spellData      	Data for the spell.
+ * @param 	{int}		rank      		The rank to find the Downrank Coefficient for.
+ *
+ * @return 	{double} 	downrankPenalty 	Returns the penalty calculated by the formula above. If the result is above 1, it returns 1.
+ */
+function getForeverDownrankPenalty(spellData, rank){
+	// Directly passing rank in here will give the next rank, since the index starts at 0. 
+	// If there is no next rank, the max rank is being used and there is no penalty.
+	if (spellData.ranks[rank]) {
+		return Math.max(0, Math.min(1, 1 - 0.05 * (getCharacterLevel() - (spellData.ranks[rank-1].level + 16))));
+	}
+	return 1;
+}
+
 function getLevelPenalty(spellData, rank){
 	switch(expansion) {
 		case 'classic':
 			return getSubLevel20Penalty(spellData.ranks[rank-1].level);
 		case 'forever':
-			return 1;
+			return getForeverDownrankPenalty(spellData, rank);
 		case 'tbc':
 			return getDownrankPenalty(spellData, rank) * getSubLevel20Penalty(spellData.ranks[rank-1].level);
 		default:

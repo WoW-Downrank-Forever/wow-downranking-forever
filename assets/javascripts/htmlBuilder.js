@@ -85,6 +85,7 @@ function buildSpellTable(spellData, healingPower) {
 						<tr>
 							<th data-sort-mode="no">Rank</th>
 							<th data-sort-mode="no">Level</th>
+							<th data-sort-mode="no">Targets</th>
 							<th>Healing</th>
 							<th data-sort-mode="asc">Mana cost</th>
 							<th data-sort-mode="no">${getSpellType(spellData.ranks[0]) === 'overTime' ? 'Duration' : 'Cast time'}</th>
@@ -119,8 +120,12 @@ function buildSpellTable(spellData, healingPower) {
 }
 
 function buildSpellTableRow(healingPower, spellData, rank) {
+	let amountTargets = spellData.ranks[rank-1].amountTargets;
 	let level = spellData.ranks[rank-1].level;
 	let power = calculatePower(healingPower, spellData, rank);
+	if (amountTargets > 1) {
+		power = power * amountTargets;
+	}
 	let cost = calculateCost(spellData, rank);
 	let castTime = calculateCastTime(spellData, rank);
 	let HpME = power/cost;
@@ -135,8 +140,9 @@ function buildSpellTableRow(healingPower, spellData, rank) {
 	let overTimeCoefficient =  overTimeBaseCoefficient * levelPenaltyCoefficient * talentAndBuffCoefficient;
 	let isChainHeal = spellData.name === 'Chain Heal';
 	let row =`<tr>
-				<td data-sort-value="${rank}">${rank}${isChainHeal ? ' (1 target)' : ''}</td>
+				<td data-sort-value="${rank}">${rank}</td>
 				<td data-sort-value="${level}">${level}</td>
+				<td data-sort-value="${amountTargets ?? 1}">${amountTargets ?? '1'}</td>
 				<td data-sort-value="${roundNumber(power, 0)}">${roundNumber(power, 0)}</td>
 				<td data-sort-value="${roundNumber(cost, 0)}">${roundNumber(cost, 0)}</td>
 				<td data-sort-value="${roundNumber(castTime, 1)}" style="white-space: nowrap;">${roundNumber(castTime, 1)} sec</td>
@@ -168,13 +174,13 @@ function buildSpellTableRow(healingPower, spellData, rank) {
 	}
 	row +=	 `</tr>`;
 	if (isChainHeal) {
-		row += buildChainHealRow(2, rank, power, cost, castTime, directCoefficient, directBaseCoefficient, levelPenaltyCoefficient, talentAndBuffCoefficient, bonusHealingCoefficient);
-		row += buildChainHealRow(3, rank, power, cost, castTime, directCoefficient, directBaseCoefficient, levelPenaltyCoefficient, talentAndBuffCoefficient, bonusHealingCoefficient);
+		row += buildChainHealRow(2, rank, level, power, cost, castTime, directCoefficient, directBaseCoefficient, levelPenaltyCoefficient, talentAndBuffCoefficient, bonusHealingCoefficient);
+		row += buildChainHealRow(3, rank, level, power, cost, castTime, directCoefficient, directBaseCoefficient, levelPenaltyCoefficient, talentAndBuffCoefficient, bonusHealingCoefficient);
 	}
 	return row;
 }
 
-function buildChainHealRow(targetNr, rank, power, cost, castTime, coefficent, baseCoefficent, levelPenaltyCoefficient, talentAndBuffCoefficient, bonusHealingCoefficient) {
+function buildChainHealRow(targetNr, rank, level, power, cost, castTime, coefficent, baseCoefficent, levelPenaltyCoefficient, talentAndBuffCoefficient, bonusHealingCoefficient) {
 	let buff = getBuffByName('improved_chain_heal');
 	let target2active = targetNr > 1 ? 1 : 0;
 	let target3active = targetNr > 2 ? 1 : 0;
@@ -190,7 +196,9 @@ function buildChainHealRow(targetNr, rank, power, cost, castTime, coefficent, ba
 	HpS = power/castTime;
 	HES = calculateHES(HpME, HpS);
 	return `<tr>
-				<td data-sort-value="${rank}" style="white-space: nowrap;">${rank}${' ('+targetNr+' targets)'}</td>
+				<td data-sort-value="${rank}" style="white-space: nowrap;">${rank}</td>
+				<td data-sort-value="${level}">${level}</td>
+				<td data-sort-value="${targetNr}">${targetNr}</td>
 				<td data-sort-value="${roundNumber(power, 0)}">${roundNumber(power, 0)}</td>
 				<td data-sort-value="${roundNumber(cost, 0)}">${roundNumber(cost, 0)}</td>
 				<td data-sort-value="${roundNumber(castTime, 1)}" style="white-space: nowrap;">${roundNumber(castTime, 1)} sec</td>

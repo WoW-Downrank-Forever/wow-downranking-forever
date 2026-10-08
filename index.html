@@ -133,6 +133,7 @@
 			<iframe class="youtube-iframe" src="https://www.youtube-nocookie.com/embed/HBDfRiB1Zlk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			<h3>Using the tool</h3>
 			<ol id="user-guide">
+				<li>Fill out your character's level</li>
 				<li>Fill out your total amount of Healing Power as shown in the in-game character pane</li>
 				<li>Fill out fields for critical strike chance, and if Ahn'Qiraj has been released to include spells learned from the AQ20 tablets.
 				<li>Select your class</li>
@@ -248,17 +249,17 @@
 
 				<code>
 					[Base Power] = ([Base min Power] + [Base max Power]) / 2 = (654 + 755) / 2 = 704.5</br>
-					[Basic Coefficient] = [Cast Time] / [Reference Cast Time] = 2.5 / 3.5 = 0.714</br>
-					[Downrank Penalty] = 1 - (Maximum(0, 60 - 12 - 16) * 0.05) = 1 - (14 * 0.05) = 0.3</br>
+					[Basic Coefficient] = [Cast Time] / [Reference Cast Time] = 3 / 3.5 = 0.857</br>
+					[Downrank Penalty] = 1 - (Maximum(0, 60 - 40 - 16) * 0.05) = 1 - (4 * 0.05) = 0.8</br>
 					[Healing Way Coefficient] = 1.25</br>
 					[Purification Coefficient] = 1.1</br>
 					[Crit Coefficient] = (1 + (1 + 10/100)) / 2 = 1.05
 				</code>
 				Which results in the actual power being:
 				<code>
-					[Actual Power] = ([Base Power] * [Healing Way Coefficient] * [Purification Coefficient] + ([Extra Power] * [Basic Coefficient] * [Downrank Penalty])) * [Crit Coefficient]</br>
-				= ((704.5 * 1.25 * 1.1) + (500 * 0.714 * 0.8)) * 1.05</br>
-				= (968.69 + 285.6) * 1.05 ≈ <i class="yellow">1317</i></br>
+					[Actual Power] = ([Base Power] * [Healing Way Coefficient] * [Purification Coefficient] + [Extra Power] * [Basic Coefficient] * [Downrank Penalty]) * [Crit Coefficient]</br>
+				= (704.5 * 1.25 * 1.1 + 500 * 0.857 * 0.8) * 1.05</br>
+				= (968.69 + 342.8) * 1.05 ≈ <i class="yellow">1375</i></br>
 				</code>
 			</p>
 			<span class="btn pull-right">

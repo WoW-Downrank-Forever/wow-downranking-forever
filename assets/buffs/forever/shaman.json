@@ -37,7 +37,7 @@
 			"description":"Heals ${tickPower} every 3 sec. Increases the effectiveness of the caster´s Chain Heal spells cast directly on this target by ${effect}%.",
 			"ranks":[
 				{	"rank":1,
-					"level":60,
+					"level":40,
 					"baseCastTime":0,
 					"tickPower":133,
 					"effect": 25

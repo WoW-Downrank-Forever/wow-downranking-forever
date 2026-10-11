@@ -34,7 +34,7 @@
 			"key":"riptide_buff",
 			"type":"buff",
 			"image":"riptide.jpg",
-			"description":"Heals ${tickPower} every 3 sec. Increases the effectiveness of the caster´s Chain Heal spells cast directly on this target by ${effect}%.",
+			"description":"Heals ${tickPower} every 3 sec. Increases the effectiveness of the caster´s Chain Heal spells cast directly on this target by ${effect}%.<br><br><i class=\"blue\">If active calculations will assume that your target has the Riptide buff active.</i>",
 			"ranks":[
 				{	"rank":1,
 					"level":40,

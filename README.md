@@ -1,16 +1,18 @@
 # World of Warcraft - Downranking tips
 Downranking tool for World of Warcraft that will help you decide which spell rank has the highest heal per mana based on your gear and talents. The metrics used are Healing per Mana Efficiency (HpME), Healing per Second (HpS) and a merged metric we've named Healing Efficiency Score (HES), which considers both HpME and HpS. HES is used when recommending ranks, since looking at only HpME or HpS is very one dimensional and does not always provide the best results.
 
-The website is hosted on [GitHub Pages](https://pages.github.com/) and can be found here https://wowdownrank.ozgar.se
+The website is hosted on [GitHub Pages](https://pages.github.com/) and can be found here https://wowdownrank.forever.ozgar.se
 
 Currently supported spells:
 
-#### Classic
+#### Forever
 
 * Druid:
   * Rejuvenation
   * Regrowth
   * Healing Touch
+  * Tranquility
+  * Wild Growth
 
 * Paladin:
   * Flash of Light
@@ -19,16 +21,71 @@ Currently supported spells:
 
 * Priest:
   * Flash Heal
+  * Lesser Heal
   * Greater Heal
   * Heal
   * Renew
+  * Holy Nova
+  * Prayer of Healing
+  * Binding Heal
+  * Penance
 
 * Shaman:
   * Chain Heal
   * Healing Wave
   * Lesser Healing Wave
+  * Riptide
 
 #### Update log
+
+#### 2026-10-12
+Forked and updated for World of Warcraft: Forever. 
+
+Added new calculations for WoW:F Downranking Penalty.
+
+##### Added spells
+* Druid:
+  * Tranquility
+  * Wild Growth
+
+* Priest:
+  * Lesser Heal
+  * Holy Nova
+  * Prayer of Healing
+  * Binding Heal
+  * Penance
+
+* Shaman:
+  * Riptide
+ 
+##### Talent changes
+* Druid:
+  * Removed Improved Healing Touch, replaced with Naturalist
+  * Removed Moonglow, now only affects damaging spells
+  * Added Genesis
+  * Added Nature's Majesty
+  * Added Nature's Splendor
+  * Added Gift of the Earthmother
+
+* Priest:
+  * Added Twin Disciplines
+  * Added Renewed Hope
+  * Mental Agility changed from 5 to 3 points
+  * Spiritual Healing changed from 5 to 3 points
+
+* Shaman:
+  * Added Healing Way
+
+#### Buff Changes
+* Druid:
+  * Added Nature's Grace
+
+* Priest:
+  * Added Weakened Soul
+
+* Shaman:
+  * Added Riptide
+  * Removed Healing Way
 
 #### 2024-12-05
 * Rewrote site to be static and hostable by GitHub Pages (only Classic version available now, tbc and wotlk are not)

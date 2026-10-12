@@ -191,10 +191,12 @@
 			</p>
 			<h4>Downrank Penalty</h4>
 			<p>
-				In order to counter the unforseen power of heavily downranking spells, a penalty was introduced to spells which can be learned at lower than your current level.
+				In order to counter the power of heavily downranking spells, there is a penalty to the bonus Healing Power your spells gain if the spell (or rank of that spell) can be learned at lower than your current level.
 				This penalty is applied to all spells that have a rank lower than the maximum rank available to the player. The penalty is calculated as follows:
 
 				<code>[Downranking Penalty] =  Maximum(0, Minimum(1, 1-0.05 * ([Character Level] - [Required level for the spell] - 16)))</code>
+
+				In summary, you will lose 5% of the extra healing provided from your gear if your character is more than 16 levels above the level required to learn the spell (or spell rank).
 			</p>
 			<h4>Spells below level 20</h4>
 			<p>

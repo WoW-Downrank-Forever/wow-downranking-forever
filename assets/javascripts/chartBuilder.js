@@ -17,6 +17,7 @@ const healingPowerRange = range(0, 1500, 100);
 var hesChart;
 var hpmeChart;
 var hpsChart;
+var hpmeRankChart;
 var radarChart;
 
 function buildRadarChart(chart, target, datasets) {
@@ -118,6 +119,7 @@ function buildSpellCharts(spellData){
     buildHESChart(spellData);
     buildHpSChart(spellData);
     buildHpMEChart(spellData);
+    buildHpMERankChart(spellData);
 }
 
 function buildCompareRadarChart(spellNames, classNames, ranks) {
@@ -240,6 +242,28 @@ function buildHpMEChart(spellData){
         );
     }
     hpmeChart = buildLineChart(hpmeChart, 'hpme-chart', 'HpME over Healing Power', datasets, healingPowerRange, 'Healing Power', 'Healing per Mana Efficiency');
+}
+
+function buildHpMERankChart(spellData) {
+    let datasets = [];
+    let rankRange = [];
+    let data = [];
+    let healingPower = getHealingPower();
+    for(r = 0; r < spellData.ranks.length; r++){
+        let HpME = calculatePowerPerMana(healingPower, spellData, r+1);
+        data.push(roundNumber(HpME, 3));
+        rankRange.push(r+1);
+    }
+    datasets.push(
+        {
+            label: `HpME at ${healingPower} Healing Power`,
+            fill: false,
+            backgroundColor: colors[0],
+            borderColor: colors[0],
+            data: data
+        }
+    );
+    hpmeRankChart = buildLineChart(hpmeRankChart, 'hpme-rank-chart', 'HpME over Rank', datasets, rankRange, 'Rank', 'Healing per Mana Efficiency');
 }
 
 

@@ -2,21 +2,6 @@
 	"class":"druid",
 	"talents": [
 		{
-			"name":"moonglow",
-			"maxRank":3,
-			"rankIncrement":3,
-			"description":"Reduces the Mana cost of your Moonfire, Starfire, Wrath, Healing Touch, Regrowth and Rejuvenation spells by ${rankIncrement}%.",
-			"image":"moonglow.jpg",
-			"affectedSpells": [
-				"Moonfire",
-				"Starfire",
-				"Wrath",
-				"Healing Touch",
-				"Regrowth",
-				"Rejuvenation"
-			]
-		},
-		{
 			"name":"improved_healing_touch",
 			"maxRank":5,
 			"castReduction":0.1,

@@ -321,14 +321,6 @@ function getTalentCostCoefficient(className, spellName, spellType){
 					costCoeff -= (data.rankIncrement * rank) / 100;
 				}
 			}
-			talent = getTalentByName('moonglow');
-			if(talent.length > 0) {
-				data = talent.data("talent");
-				if(isAffected(spellName, spellType, data)){
-					rank = talent.data("current-rank");
-					costCoeff -= (data.rankIncrement * rank) / 100;
-				}
-			}
 			return costCoeff;
 		case "paladin":
 			let critChance = getEffectiveCritChance(className, spellName, spellType);

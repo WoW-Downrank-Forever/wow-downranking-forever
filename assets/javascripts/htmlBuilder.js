@@ -161,7 +161,7 @@ function buildSpellTableRow(healingPower, spellData, rank) {
 	} else {
 		let coefficent = directCoefficient;
 		let baseCoefficent = directBaseCoefficient;
-		if (directCoefficient === 0) {
+		if (directBaseCoefficient === 0) {
 			coefficent = overTimeCoefficient;
 			baseCoefficent = overTimeBaseCoefficient;
 		}

@@ -373,7 +373,7 @@ function getTalentCastTimeReduction(className, spellName, spellType){
 	let rank;
 	switch(className) {
 		case "druid":
-			talent = expansion === 'tbc' ? getTalentByName('naturalist') : getTalentByName('improved_healing_touch');
+			talent = getTalentByName('naturalist');
 			if(talent.length > 0) {
 				data = talent.data("talent");
 				if(isAffected(spellName, spellType, data)){
@@ -387,6 +387,14 @@ function getTalentCastTimeReduction(className, spellName, spellType){
 				if(isAffected(spellName, spellType, data)){
 					rank = talent.data("current-rank");
 					return data.rankIncrement * rank * getEffectiveCritChance(className, spellName, spellType)/100;
+				}
+			}
+			talent = getTalentByName('gift_of_the_earthmother');
+			if(talent.length > 0) {
+				data = talent.data("talent");
+				if(isAffected(spellName, spellType, data)){
+					rank = talent.data("current-rank");
+					return data.rankIncrement * rank;
 				}
 			}
 			return 0;

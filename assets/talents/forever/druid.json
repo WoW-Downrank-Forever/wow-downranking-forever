@@ -2,10 +2,11 @@
 	"class":"druid",
 	"talents": [
 		{
-			"name":"improved_healing_touch",
+			"name":"naturalist",
 			"maxRank":5,
 			"castReduction":0.1,
-			"description":"Reduces the cast time of your Healing Touch spell by ${castReduction} sec.",
+			"increasedDamage": 1,
+			"description":"Reduces the cast time of your Healing Touch spell by ${castReduction} sec and increases all damage you deal by ${increasedDamage}%.",
 			"image":"healing_touch.jpg",
 			"affectedSpells": [
 				"Healing Touch"
@@ -98,7 +99,8 @@
 			"image":"gift_of_the_earthmother.jpg",
 			"affectedSpells": [
 				"Rejuvenation",
-				"Wild Growth"
+				"Wild Growth",
+				"Swiftmend"
 			]
 		}
 	]
